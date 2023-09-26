@@ -12,10 +12,12 @@ public class Benchmarks
     [Arguments(10, 600)]
     [Arguments(100, 600)]
     [Arguments(100, 6000)]
-    [Arguments(100, 60000)]
-    [Arguments(100, 600000)]
-    public void ExportWithSyncfusion(int worksheets, int rows)
+    //[Arguments(100, 60000)]
+    //[Arguments(100, 600000)]
+    public async Task ExportWithSyncfusion(int worksheets, int rows)
     {
+        await using var stream = File.Create("syncfusion.xlsx");
+
         using var excelEngine = new ExcelEngine();
         excelEngine.Excel.DefaultVersion = ExcelVersion.Excel2016;
         var workbook = excelEngine.Excel.Workbooks.Create(worksheets);
@@ -49,15 +51,15 @@ public class Benchmarks
             worksheet.ImportData(data, importDataOptions);
         }
 
-        workbook.SaveAs("sample.xlsx");
+        workbook.SaveAs(stream);
     }
 
     [Benchmark]
     [Arguments(10, 600)]
     [Arguments(100, 600)]
     [Arguments(100, 6000)]
-    [Arguments(100, 60000)]
-    [Arguments(100, 600000)]
+    //[Arguments(100, 60000)]
+    //[Arguments(100, 600000)]
     public async Task ExportWithSpreadCheetah(int worksheets, int rows)
     {
         await using var stream = File.Create("spreadcheetah.xlsx");
