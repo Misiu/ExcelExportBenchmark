@@ -8,7 +8,6 @@ namespace ExportBenchmark;
 [MemoryDiagnoser]
 public class Benchmarks
 {
-
     [Benchmark]
     [Arguments(10, 600)]
     [Arguments(100, 600)]
@@ -23,15 +22,10 @@ public class Benchmarks
 
         for (var i = 0; i < worksheets; i++)
         {
-
-            //get worksheet
             var worksheet = workbook.Worksheets[i];
-            //set worksheet name
             worksheet.Name = $"Sheet {i}";
 
-            //add header
             worksheet.Range["A1"].Text = $"Sample description {i}";
-            //merge header cells
             worksheet.Range["A1:B1"].Merge();
 
             worksheet.Range["A2"].Text = "Data";
@@ -39,7 +33,6 @@ public class Benchmarks
 
             var data = new List<DataRecord>();
 
-            //this simulates loading data from the database
             for (var j = 0; j < rows; j++)
             {
                 var dateTime = new DateTime(2023, 1, 1).AddSeconds(j);
@@ -81,13 +74,13 @@ public class Benchmarks
 
         for (var i = 0; i < worksheets; i++)
         {
-            // A spreadsheet must contain at least one worksheet.
             await spreadsheet.StartWorksheetAsync($"Sheet {i}");
 
             var header1 = new[]
             {
                 new StyledCell($"Sample description {i}", headerStyleId),
             };
+
             var header2 = new[]
             {
                 new StyledCell("Data", headerStyleId),
@@ -104,21 +97,16 @@ public class Benchmarks
             {
                 var dateTime = new DateTime(2023, 1, 1).AddSeconds(j);
 
-                // Cells are inserted row by row.
                 var dataRow = new[]
                 {
                     new DataCell(dateTime),
                     new DataCell(j)
                 };
 
-                // Rows are inserted from top to bottom.
                 await spreadsheet.AddRowAsync(dataRow);
             }
         }
 
-
-        // Remember to call Finish before disposing.
-        // This is important to properly finalize the XLSX file.
         await spreadsheet.FinishAsync();
     }
 }

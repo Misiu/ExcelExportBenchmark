@@ -6,10 +6,7 @@ namespace ExportBenchmark
     {
         static void Main()
         {
-            //run benchmark only once
             var summary = BenchmarkRunner.Run<Benchmarks>();
-
-            //BenchmarkRunner.Run<Benchmarks>();
         }
     }
 }
