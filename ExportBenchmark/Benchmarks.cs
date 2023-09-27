@@ -12,7 +12,7 @@ public class Benchmarks
     [Arguments(10, 600)]
     [Arguments(100, 600)]
     [Arguments(100, 6000)]
-    //[Arguments(100, 60000)]
+    [Arguments(100, 60000)]
     //[Arguments(100, 600000)]
     public async Task ExportWithSyncfusion(int worksheets, int rows)
     {
@@ -58,7 +58,7 @@ public class Benchmarks
     [Arguments(10, 600)]
     [Arguments(100, 600)]
     [Arguments(100, 6000)]
-    //[Arguments(100, 60000)]
+    [Arguments(100, 60000)]
     //[Arguments(100, 600000)]
     public async Task ExportWithSpreadCheetah(int worksheets, int rows)
     {
